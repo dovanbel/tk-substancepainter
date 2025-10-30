@@ -1,0 +1,124 @@
+# Copyright 2025 Donat Van Bellinghen
+#
+# Inspired by original work by Diego Garcia Huerta (2019)
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Your use of the Flow Production Tracking Pipeline Toolkit is governed by the applicable
+# license agreement between you and Autodesk.
+
+
+
+# expected fields in the configuration file for this engine
+configuration:
+
+    automatic_context_switch:
+        type: bool
+        description: "Controls whether toolkit should attempt to automatically adjust its
+                     context every time the currently loaded file changes. Defaults to True."
+        default_value: True
+
+    change_context_on_new_project:
+        type: bool
+        description: "Controls whether the engine is refreshed and context changed when a new
+                     project is created and the path to the mesh loaded is recognized as a valid context.
+                     By default is turned off, so when a new project is created right after 'New File'
+                     is clicked, the context is preserved."
+        default_value: False
+
+    compatibility_dialog_min_version:
+        type: int
+        description: "Specify a Adobe Substance 3D Painter major version. Any version
+                     greater than or equal to this value will not display a compatibility
+                     warning dialog at startup. This allows studios to disable the warning for
+                     versions they have tested and approved. For example, if set to 12, versions
+                     11.x and below will show a warning, but 12.x and above will not."
+        default_value: 13
+
+    debug_logging: 
+        type: bool
+        description: Controls whether debug messages should be emitted to the logger
+        default_value: True
+
+    menu_favourites:
+        type: list
+        description: "Controls the favourites section on the main menu. This is a list
+                     and each menu item is a dictionary with keys app_instance and name.
+                     The app_instance parameter connects this entry to a particular
+                     app instance defined in the environment configuration file. The name
+                     is a menu name to make a favourite."
+        allows_empty: True
+        values:
+            type: dict
+            items:
+                name: { type: str }
+                app_instance: { type: str }
+
+    run_at_startup:
+        type: list
+        description: "Controls what apps will run on startup.  This is a list where each element
+                     is a dictionary with two keys: 'app_instance' and 'name'.  The app_instance
+                     value connects this entry to a particular app instance defined in the
+                     environment configuration file.  The name is the menu name of the command
+                     to run when the Substance Painter engine starts up.  If name is '' then all commands from the
+                     given app instance are started."
+        allows_empty: True
+        default_value: []
+        values:
+            type: dict
+            items:
+                name: { type: str }
+                app_instance: { type: str }
+
+
+    launch_builtin_plugins:
+        type: list
+        description: Comma-separated list of tk-substancepainter plugins to load when launching 
+                    Adobe Substance 3D Painter. Use of this feature disables the classic mechanism
+                    for bootstrapping Toolkit when Substance Painter is launched.
+        allows_empty: True
+        default_value: []
+        values:
+            type: str
+
+    textures_export_work_area:
+        type: template
+        description: A reference to a template which defines the work directory for exported textures
+        allows_empty: True
+        fields: context, *
+
+    windows_path_mappings:
+        type: list
+        allows_empty: True
+        description: "List of path mappings to convert from UNC paths to mapped network drive.
+                     Substance painter does not support UNC paths on Windows (Duh!)
+                     Here you can define a list of dicts. Each dict contains the key: 'unc_prefix' which
+                     has to be configured with a unc path prefix, and key 'mapped_drive_prefix' which
+                     should contain the path to the same network share, but using a mapped network drive"
+        default_value: []
+        values:
+            type: dict
+            items:
+                unc_prefix: {type: str}
+                mapped_drive_prefix: {type: str}
+
+# the ShotGrid fields that this engine needs in order to operate correctly
+requires_shotgun_fields:
+        
+# More verbose description of this item 
+display_name: "ShotGrid Engine for Adobe Substance 3D Painter"
+description: "ShotGrid Integration for Adobe Substance 3D Painter"
+
+# Required minimum versions for this item to run
+requires_shotgun_version: 
+requires_core_version: "v0.20.0"
