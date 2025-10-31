@@ -32,11 +32,6 @@ from sgtk.platform.qt6 import QtCore, QtGui, QtWidgets
 
 
 
-# Name of a template that is located at the root of the Assets
-# used to open the mesh selection file dialog in a nice default directory
-ASSET_ROOT_TEMPLATE = "asset_root"
-MODELING_STEP_NAME = "modeling"
-
 
 logger = sgtk.LogManager.get_logger("__name__")
 
@@ -52,7 +47,7 @@ class NewProjectDialog(QtWidgets.QWidget):
         # first, call the base class and let it do its thing.
         QtWidgets.QWidget.__init__(self)
 
-        self._app = sgtk.platform.current_bundle()
+        self._engine = sgtk.platform.current_engine()
         # Retrieve the substance painter templates and store them
         self._sp_templates = self._get_templates()
 
@@ -233,17 +228,25 @@ class NewProjectDialog(QtWidgets.QWidget):
 
     def _get_asset_root_path(self, context):
         """
-        Based on the sgtk context, find the asset root path
+        Based on the context, find the root directory of the modeling step
         """
 
-        tk = self._app.sgtk
+        template = self._engine.get_template("modeling_root_area")
+        modeling_step_name = self._engine.get_setting("modeling_step_name")
 
-        template = tk.templates.get(ASSET_ROOT_TEMPLATE)
         if not template:
             return None
 
         fields = context.as_template_fields(template)
-        fields["Step"] = MODELING_STEP_NAME
+        fields["Step"] = modeling_step_name
+
+        missing_keys = template.missing_keys(fields)
+        if missing_keys:
+            logger.debug(f"Not enough keys to apply fields: {fields}"
+                        f" to template: {template}"
+                         "Will use OS default directory")
+            return None
+
         path = template.apply_fields(fields)
 
         return path

@@ -91,6 +91,18 @@ configuration:
         values:
             type: str
 
+    modeling_root_area:
+        type: template
+        description: A reference to a template which defines the root directory of 3d models
+        allows_empty: True
+        fields: context, *
+
+    modeling_step_name:
+        description: Name of the modeling Step.
+        type: str
+        allows_empty: True
+
+
     textures_export_work_area:
         type: template
         description: A reference to a template which defines the work directory for exported textures
