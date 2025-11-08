@@ -36,5 +36,7 @@ pip-log.txt
 # Vscode
 .vscode
 
+Thumbs.db
+
 # testing directory
 /testing

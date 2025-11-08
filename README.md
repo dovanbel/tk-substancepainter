@@ -36,6 +36,17 @@ The following sections provide configuration examples for a pipeline based on [t
 Add these template definitions to `core/templates.yml`:
 
 ```yaml
+
+    ##################### keys section
+
+    texture_extension:
+        type: str
+        filter_by: alphanumeric
+        alias: extension
+
+    ##################### templates section
+
+
     asset_root: Assets/{sg_asset_type}/{Asset}/{Step}
     
     substancepainter_asset_root: '@asset_root/substancepainter'
@@ -63,11 +74,11 @@ Add these template definitions to `core/templates.yml`:
     
     # Published texture files
     substancepainter_asset_texture_publish:
-        definition: '@substancepainter_asset_texture_publish_area/{texture_set}_v{version}/{Asset}_{task_name}_{texture_set}_{texture_map}_{colorspace}_v{version}.{extension}'
+        definition: '@substancepainter_asset_texture_publish_area/{texture_set}_v{version}/{Asset}_{task_name}_{texture_set}_{texture_map}_{colorspace}_v{version}.{texture_extension}'
     
     # Published UDIM texture files
     substancepainter_asset_texture_udim_publish:
-        definition: '@substancepainter_asset_texture_publish_area/{texture_set}_v{version}/{Asset}_{task_name}_{texture_set}_{texture_map}_{colorspace}_v{version}.{UDIM}.{extension}'
+        definition: '@substancepainter_asset_texture_publish_area/{texture_set}_v{version}/{Asset}_{task_name}_{texture_set}_{texture_map}_{colorspace}_v{version}.{UDIM}.{texture_extension}'
     
     # Texture set publish folder
     substancepainter_asset_texture_set_publish:
