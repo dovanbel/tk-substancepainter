@@ -22,6 +22,7 @@ import shutil
 import sys
 
 import tank as sgtk
+from sgtk.util.filesystem import ensure_folder_exists
 from tank.platform import LaunchInformation, SoftwareLauncher, SoftwareVersion
 
 __author__ = "Donat Van Bellinghen"
@@ -90,9 +91,12 @@ class SubstancePainterLauncher(SoftwareLauncher):
         user_python_startup_directory = os.path.join(
             substance_user_directory, "python", "startup"
         )
+        ensure_folder_exists(user_python_startup_directory)
+
         user_export_presets_directory = os.path.join(
             substance_user_directory, "assets", "export-presets"
         )
+        ensure_folder_exists(user_export_presets_directory)
 
         bootstrap_script_filepath = os.path.join(
             self.disk_location, "startup", "shotgrid_bootstrap.py"
@@ -368,6 +372,9 @@ class SubstancePainterLauncher(SoftwareLauncher):
 
         :return: Path to the user directory.
         """
+
+        sp_user_dir = None
+
         if sys.platform == "win32":
             import winreg
 
@@ -384,10 +391,11 @@ class SubstancePainterLauncher(SoftwareLauncher):
                 "Adobe",
                 "Adobe Substance 3D Painter",
             )
-            return sp_user_dir
-
         else:  # macOS and Linux
             sp_user_dir = os.path.expanduser(
                 r"~/Documents/Adobe/Adobe Substance 3D Painter"
             )
-            return sp_user_dir
+
+        ensure_folder_exists(sp_user_dir)
+
+        return sp_user_dir
