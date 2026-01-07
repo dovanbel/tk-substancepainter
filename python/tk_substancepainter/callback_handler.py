@@ -18,7 +18,7 @@
 # license agreement between you and Autodesk.
 
 __author__ = "Donat Van Bellinghen"
-__contact__ = "https://www.linkedin.com/in/donat-van-bellinghen-98002914/"
+__contact__ = "https://www.linkedin.com/in/donat-van-bellinghen"
 __credits__ = ["Diego Garcia Huerta", "Donat Van Bellinghen"]
 
 import os

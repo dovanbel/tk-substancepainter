@@ -26,7 +26,7 @@ from sgtk.util.filesystem import ensure_folder_exists
 from tank.platform import LaunchInformation, SoftwareLauncher, SoftwareVersion
 
 __author__ = "Donat Van Bellinghen"
-__contact__ = "https://www.linkedin.com/in/donat-van-bellinghen-98002914/"
+__contact__ = "https://www.linkedin.com/in/donat-van-bellinghen"
 __credits__ = ["Diego Garcia Huerta", "Donat Van Bellinghen"]
 
 logger = sgtk.LogManager.get_logger(__name__)
