@@ -112,3 +112,11 @@ def start_plugin():
         if var in os.environ:
             del os.environ[var]
 
+
+def close_plugin(): 
+    # This method is called when the plugin is stopped.
+
+    # As this plugin will only be stopped when Substance Painter is exited,
+    # there is no need to do anything
+    pass
+ 

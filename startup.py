@@ -35,7 +35,7 @@ logger = sgtk.LogManager.get_logger(__name__)
 # binary/executable, so we allow the engine to run with it
 UNKNOWN_VERSION = "UNKNOWN_VERSION"
 
-MINIMUM_SUPPORTED_VERSION = "11.0.0"
+MINIMUM_SUPPORTED_VERSION = "13.0.0"
 
 
 class SubstancePainterLauncher(SoftwareLauncher):
